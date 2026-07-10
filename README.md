@@ -20,6 +20,23 @@ This is a mobile app that **detects hand movements through your camera** and res
 
 ---
 
+## Table of Contents
+
+- [Main Features](#main-features)
+- [Architecture](#architecture)
+- [Folder Structure](#folder-structure)
+- [Dependencies](#dependencies)
+- [Getting Started](#getting-started)
+- [Platform Support](#platform-support)
+- [How to Use the App](#how-to-use-the-app)
+- [Performance Tips](#performance-tips)
+- [For Developers](#for-developers)
+- [License](#license)
+- [Learning Resources](#learning-resources)
+- [FAQ](#faq)
+
+<a name="main-features"></a>
+
 ## ✨ Main Features
 
 ### 🎥 Real-Time Hand Detection
@@ -41,13 +58,9 @@ This is a mobile app that **detects hand movements through your camera** and res
 - Transition from normal to blur takes 400 milliseconds
 - Camera display is always in **portrait mode** (like most phones)
 
-### 📊 Performance Monitoring
-
-- App tracks how fast detection happens
-- Shows real-time performance metrics
-- Clear error messages if something goes wrong
-
 ---
+
+<a name="architecture"></a>
 
 ## 🛠️ How It Works Behind the Scenes (Architecture)
 
@@ -62,6 +75,8 @@ Built with:
 
 ---
 
+<a name="folder-structure"></a>
+
 ## 📁 Folder Structure (For Developers)
 
 ```
@@ -74,23 +89,20 @@ lib/
 │   └── router/
 │       └── app_router.dart             # Page navigation
 ├── feature/
-│   └── hand_tracker/
+│   └── feature_name/
 │       ├── data/                       # Detection & data section
 │       │   ├── datasources/
-│       │   │   └── hand_detection_local_data_source.dart
 │       │   ├── models/
-│       │   │   └── detected_hand_model.dart
 │       │   └── repositories/
 │       ├── presentation/               # UI section
 │       │   ├── viewmodels/
-│       │   │   └── hand_tracker_viewmodel.dart
 │       │   ├── pages/
-│       │   │   └── hand_tracker_page.dart
 │       │   └── widgets/
-│       │       └── hand_overlay.dart
 ```
 
 ---
+
+<a name="dependencies"></a>
 
 ## 📦 Dependencies (Libraries Used)
 
@@ -104,6 +116,8 @@ lib/
 | `go_router`          | Navigate between screens           |
 
 ---
+
+<a name="getting-started"></a>
 
 ## 🚀 Getting Started
 
@@ -120,7 +134,7 @@ lib/
 
 ```bash
 git clone <repository-url>
-cd blur_wave_mobile
+cd flux-hand
 ```
 
 **2️⃣ Install Dependencies (Libraries)**
@@ -142,6 +156,8 @@ flutter run
 
 ---
 
+<a name="platform-support"></a>
+
 ## 📱 Platform Support
 
 This project currently supports **Android only**.
@@ -152,6 +168,8 @@ This project currently supports **Android only**.
 The app is developed and tested for Android devices only.
 
 ---
+
+<a name="how-to-use-the-app"></a>
 
 ## 📱 How to Use the App
 
@@ -167,112 +185,7 @@ The app is developed and tested for Android devices only.
 
 ---
 
-## 🔍 Technical Details (How It Actually Works)
-
-### Input → Process → Output
-
-**Input:**
-
-- Images from your camera in YUV420 format (standard camera format)
-
-**Process:**
-
-- App rotates images based on phone orientation (90°, 180°, or 270°)
-- AI detects 21 points on your hand (called "landmarks")
-- System recognizes gesture from these points
-
-**Output:**
-
-- List of detected hands
-- Coordinates of each hand point
-- Type of gesture (peace, thumbUp, fist, etc.)
-- Confidence score (0-100%)
-
-### 💡 Blur Animation
-
-- Starts with blur level 0 (clear)
-- Over 400 milliseconds, blur increases to level 10 (most blurred)
-- Dark color also gradually appears
-
-### 🖐️ Gesture Recognition
-
-- **Peace/Victory**: AI sees 2 raised fingers
-- **Thumbs Up**: Built-in recognition from hand_detection package
-- **Fist/Closed Hand**: All hand points are very close to each other
-
-### 🔒 Threading (Technical Detail)
-
-- Camera runs on a separate thread so it doesn't slow down the UI
-- App prevents duplicate detections from happening at the same time
-- Memory is cleaned up properly when you close the app
-
----
-
-## 📖 Code Reference (For Developers)
-
-### State & Data from ViewModel
-
-```dart
-// Boolean values (true/false)
-isBlurred          // true if peace gesture detected
-isThumbOk          // true if thumbs up detected
-isFist             // true if closed fist detected
-permissionGranted  // true if camera permission was given
-
-// Numbers and text
-latestLatencyMs    // Last detection time (in milliseconds)
-gestureLabel       // Current gesture label ("THUMB", "BLUR", etc)
-statusMessage      // Status message ("OKE" or empty)
-
-// Complex data
-hands              // List of all detected hands
-primaryHand        // Hand with highest confidence
-```
-
----
-
-## ❓ Troubleshooting (Problem Solving)
-
-### ❌ Error: "HandDetector not initialized"
-
-**What it means:** Camera sent images before AI was ready
-
-**Solution:** Wait for the app to fully load (usually just 1-2 seconds)
-
----
-
-### ❌ Gesture Not Being Detected
-
-**What it means:** App doesn't recognize your hand movement
-
-**Reasons & Solutions:**
-
-- ☀️ Not enough light → **Use a brighter location**
-- 👋 Hand outside camera frame → **Make sure hand is fully visible**
-- 🔄 Too fast movements → **Move your hand more slowly**
-
----
-
-### ❌ Blur Not Smooth (Stuttering)
-
-**What it means:** Blur appears jerky instead of smooth
-
-**Solution:** This is normal on older phones. Nothing to worry about.
-
----
-
-### ❌ "Permission Denied" (Camera Access Denied)
-
-**What it means:** You rejected camera access
-
-**Solution:**
-
-1. Open **Settings** on your phone
-2. Find **App Permissions** or **Permissions**
-3. Find **blur_wave_mobile**
-4. Turn on **Camera**
-
----
+<a name="performance-tips"></a>
 
 ## ⚙️ Performance Tips
 
@@ -289,16 +202,7 @@ primaryHand        // Hand with highest confidence
 
 ---
 
-## 🔮 Planned Features
-
-- [ ] Back camera support
-- [ ] Custom gesture training
-- [ ] Multi-hand combinations
-- [ ] 3D hand pose visualization
-- [ ] Video recording with effects
-- [ ] Cloud-based detection option
-
----
+<a name="for-developers"></a>
 
 ## 👨‍💻 For Developers
 
@@ -321,11 +225,15 @@ flutter test
 
 ---
 
+<a name="license"></a>
+
 ## 📄 License
 
-**This project is private.** It cannot be shared or distributed without permission.
+This project is licensed under the MIT License — see [LICENSE](LICENSE) for details.
 
 ---
+
+<a name="learning-resources"></a>
 
 ## 🔗 Learning Resources
 
@@ -338,6 +246,8 @@ flutter test
 - 🧠 [Google ML Kit](https://developers.google.com/ml-kit/vision/hand-detection) - Technology behind hand detection
 
 ---
+
+<a name="faq"></a>
 
 ## 💬 Frequently Asked Questions (FAQ)
 
